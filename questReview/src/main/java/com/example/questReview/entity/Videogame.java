@@ -26,7 +26,10 @@ public class Videogame {
     @ManyToMany(mappedBy = "videogameList")
     private List<Review> reviewList;
 
-    public Videogame(String title, String softwareHouse, String publisher, LocalDate dateOfRelease, VideogamesGenres genre, Integer pegi, String platform, List<Review> reviewList, User user) {
+    public Videogame(){
+
+    }
+    public Videogame(String title, String softwareHouse, String publisher, LocalDate dateOfRelease, VideogamesGenres genre, Integer pegi, String platform) {
         this.title = title;
         this.softwareHouse = softwareHouse;
         this.publisher = publisher;
@@ -34,8 +37,7 @@ public class Videogame {
         this.genre = genre;
         this.pegi = pegi;
         this.platform = platform;
-        this.reviewList = reviewList;
-        this.user = user;
+
     }
 
     public Long getId() {
