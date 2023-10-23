@@ -22,11 +22,13 @@ public class Review {
             inverseJoinColumns = @JoinColumn(name = "videogame_id"))
     private List<Videogame> videogameList;
 
-    public Review(String reviewText, LocalDate reviewDate, User user, List<Videogame> videogameList) {
+    public Review(){
+
+    }
+
+    public Review(String reviewText, LocalDate reviewDate) {
         this.reviewText = reviewText;
         this.reviewDate = reviewDate;
-        this.user = user;
-        this.videogameList = videogameList;
     }
 
     public Long getId() {

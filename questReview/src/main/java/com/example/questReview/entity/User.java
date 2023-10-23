@@ -17,11 +17,12 @@ public class User {
     private List<Videogame> videogameList;
 
 
-    public User(String nickname, String email, List<Review> reviews, List<Videogame> videogameList) {
+    public User(){
+
+    }
+    public User(String nickname, String email) {
         this.nickname = nickname;
         this.email = email;
-        this.reviews = reviews;
-        this.videogameList = videogameList;
     }
 
 
