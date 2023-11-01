@@ -23,8 +23,9 @@ public class ReviewService {
         return videogameDAO.findAll();
     }
     //METODO INSERT
-    public Videogame AddVideogame(Videogame videogame) {
-        return videogameDAO.save(videogame);
+    public Optional<Videogame> AddVideogame(Videogame videogame) {
+        Optional<Videogame> opt = Optional.of(videogame);
+        return Optional.of(videogameDAO.save(videogame));
     }
 
     //Metodo DELETE
