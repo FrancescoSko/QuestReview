@@ -13,18 +13,21 @@ public class UserService {
     @Autowired
     private UserDAO userDao;
 
-
-    //METODO PER CREARE UN USER
-    public User createUser(User user) {
-        return userDao.save(user);
+    public List<User> getAllUsers () {
+        return userDao.findAll();
     }
 
+    //METODO PER CREARE UN USER
+    public Optional<User> createUser(User userToCreate) {
+        User user = userDao.save(userToCreate);
+
+        return Optional.of(user);
+    }
 
     //METODO PER ELIMINARE UN USER TRAMITE IL SUO ID
     public void deleteUserById(Long userId) {
         userDao.deleteById(userId);
     }
-
 
     //METODO PER AGGIORNARE LE INFORMAZIONI DI UNO USER
     public User updateUser(Long userId, User updatedUser) {
