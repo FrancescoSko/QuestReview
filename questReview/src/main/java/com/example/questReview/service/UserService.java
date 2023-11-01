@@ -10,28 +10,32 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+    @Autowired
     private UserDAO userDao;
 
-    @Autowired
-    public UserService (UserDAO userDao) {
-        this.userDao = userDao;
-    }
 
-    public User insertUser(User user) {
+    //METODO PER CREARE UN USER
+    public User createUser(User user) {
         return userDao.save(user);
     }
 
+
+    //METODO PER ELIMINARE UN USER TRAMITE IL SUO ID
     public void deleteUserById(Long userId) {
         userDao.deleteById(userId);
     }
 
-    public User updateUser(Long userId, User updateduser) {
+
+    //METODO PER AGGIORNARE LE INFORMAZIONI DI UNO USER
+    public User updateUser(Long userId, User updatedUser) {
         if (userDao.existsById(userId)) {
-            updateduser.setId(userId);
-            return userDao.save(updateduser);
+            updatedUser.setId(userId);
+            return userDao.save(updatedUser);
         } else {
-            throw new IllegalArgumentException("Utente non trovato!");
+            throw new IllegalArgumentException("User not found!");
         }
     }
+
+
 }
 
