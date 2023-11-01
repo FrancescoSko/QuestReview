@@ -24,14 +24,13 @@ public class ReviewService {
 
 
     //METODO INSERT
-<<<<<<< HEAD
+
     public Optional<Videogame> AddVideogame(Videogame videogame) {
         Optional<Videogame> opt = Optional.of(videogame);
         return Optional.of(videogameDAO.save(videogame));
-=======
+
     public Videogame addVideogame(Videogame videogame) {
         return videogameDAO.save(videogame);
->>>>>>> f637344111ae3b81db91d2d1f1351dd9930f582f
     }
 
 
@@ -45,8 +44,7 @@ public class ReviewService {
         if (videogameDAO.existsById(id)) {
             videogameUpdated.setId(id);
             return videogameDAO.save(videogameUpdated);
-
-        }else{
+     }   else{
             throw new IllegalArgumentException("Videogame not found for this id: " + id);
         }
 
