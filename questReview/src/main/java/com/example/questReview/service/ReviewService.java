@@ -12,33 +12,36 @@ import java.util.Optional;
 
 @Service
 public class ReviewService {
+    @Autowired
     private VideogameDAO videogameDAO;
 
-    @Autowired
-    public ReviewService(VideogameDAO videogameDAO) {
-        this.videogameDAO = videogameDAO;
-    }
-    //SELECT
+
+
+    //METODO SELECT
     public List<Videogame> getVideogame() {
         return videogameDAO.findAll();
     }
+
+
     //METODO INSERT
-    public Videogame AddVideogame(Videogame videogame) {
+    public Videogame addVideogame(Videogame videogame) {
         return videogameDAO.save(videogame);
     }
 
-    //Metodo DELETE
-    public void eliminaVideoGamePerId(Long id) {
+
+    //METODO DELETE
+    public void deleteVideogameById(Long id) {
         videogameDAO.deleteById(id);
     }
 
-    public Videogame editVideogame(Long id, Videogame videogameup) {
+
+    public Videogame editVideogame(Long id, Videogame videogameUpdated) {
         if (videogameDAO.existsById(id)) {
-            videogameup.setId(id);
-            return videogameDAO.save(videogameup);
+            videogameUpdated.setId(id);
+            return videogameDAO.save(videogameUpdated);
 
         }else{
-            throw new IllegalArgumentException("id del VideoGame da modificare non Trovato");
+            throw new IllegalArgumentException("Videogame not found for this id: " + id);
         }
 
     }

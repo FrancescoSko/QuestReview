@@ -5,18 +5,23 @@ import com.example.questReview.repository.VideogameDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class VideogameService {
 
+    @Autowired
     private VideogameDAO videogameDAO;
 
-    @Autowired
-    public VideogameService(VideogameDAO videogameDAO){
-        this.videogameDAO = videogameDAO;
+
+
+    public List<Videogame> getAllVideogames(){
+        return videogameDAO.findAll();
     }
 
-    public Videogame addVideoGame(Videogame videogame){
-        return videogameDAO.save(videogame);
+    public Optional<Videogame> addVideoGame(Videogame videogame){
+        return Optional.of(videogame);
     }
 
     public void removeVideogame(Long id){
