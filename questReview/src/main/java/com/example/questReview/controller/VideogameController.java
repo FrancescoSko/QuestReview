@@ -30,11 +30,9 @@ public class VideogameController {
        if(opt.isPresent()){
            return ResponseEntity.ok("Videogame added : " + videogame.toString());
        } else {
-           return ResponseEntity.badRequest().body("Impossible to add a new videogame, verify all fields");
+           return ResponseEntity.badRequest().body("Impossible to add a new videogame, verify all the fields");
        }
     }
-
-
 
 
 
