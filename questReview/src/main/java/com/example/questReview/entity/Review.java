@@ -15,12 +15,11 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "review_videogame",
-            joinColumns = @JoinColumn(name = "review_id"),
-            inverseJoinColumns = @JoinColumn(name = "videogame_id"))
-    private List<Videogame> videogameList;
+    @ManyToOne
+    @JoinColumn(name = "videogame_id")
+    private Videogame videogame;
+
+
 
     public Review(){
 
@@ -63,11 +62,11 @@ public class Review {
         this.user = user;
     }
 
-    public List<Videogame> getVideogameList() {
-        return videogameList;
+    public Videogame getVideogame() {
+        return videogame;
     }
 
-    public void setVideogameList(List<Videogame> videogameList) {
-        this.videogameList = videogameList;
+    public void setVideogame(Videogame videogame) {
+        this.videogame = videogame;
     }
 }

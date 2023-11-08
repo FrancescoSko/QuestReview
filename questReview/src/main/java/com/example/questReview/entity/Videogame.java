@@ -22,8 +22,10 @@ public class Videogame {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "videogame_id")
 
-    @ManyToMany(mappedBy = "videogameList")
+    @OneToMany(mappedBy = "videogame")
     private List<Review> reviewList;
 
     public Videogame(){

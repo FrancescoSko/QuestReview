@@ -2,10 +2,12 @@ package com.example.questReview.dto;
 
 import java.time.LocalDate;
 
-public class RewiewDto {
+public class ReviewDto {
     private Long id;
     private String reviewText;
     private LocalDate reviewDate;
+    private Long userId;
+    private Long videogameId;
 
     public Long getId() {
         return id;
@@ -29,5 +31,21 @@ public class RewiewDto {
 
     public void setReviewDate(LocalDate reviewDate) {
         this.reviewDate = reviewDate;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getVideogameId() {
+        return videogameId;
+    }
+
+    public void setVideogameId(Long videogameId) {
+        this.videogameId = videogameId;
     }
 }
