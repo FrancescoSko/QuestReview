@@ -27,7 +27,7 @@ public class UserController {
         Optional<User> userOpt = userService.createUser(userToCreate);
 
         if(userOpt.isPresent()) {
-            return ResponseEntity.ok("user added: " + userOpt.get());
+            return ResponseEntity.ok("user added: " + userOpt.get().getNickname());
         } else {
             return ResponseEntity.badRequest().body("Impossible to add the new user, verify all the fields");
         }

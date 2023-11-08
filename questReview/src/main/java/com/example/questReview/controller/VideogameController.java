@@ -28,7 +28,7 @@ public class VideogameController {
     public ResponseEntity<String> addVideogame(@RequestBody Videogame videogame){
     Optional<Videogame> opt = videogameService.addVideoGame(videogame);
        if(opt.isPresent()){
-           return ResponseEntity.ok("Videogame added : " + videogame.toString());
+           return ResponseEntity.ok("Videogame added : " + videogame.getTitle());
        } else {
            return ResponseEntity.badRequest().body("Impossible to add a new videogame, verify all the fields");
        }
