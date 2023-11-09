@@ -39,7 +39,7 @@ public class ReviewService {
         return reviewDtoList;
     }
 
-    public Optional<Review> addReview(ReviewDto reviewDto){
+    public Optional<ReviewDto> addReview(ReviewDto reviewDto){
         Review newReview = new Review();
         newReview.setReviewText(reviewDto.getReviewText());
         newReview.setReviewDate(reviewDto.getReviewDate());
@@ -59,8 +59,17 @@ public class ReviewService {
         if(videogameOptional.isEmpty() || userOptional.isEmpty()){
             return Optional.empty();
         } else {
-            reviewDAO.save(newReview);
-            return Optional.of(newReview);
+            Review reviewSaved = reviewDAO.save(newReview);
+
+            ReviewDto newReviewDto = new ReviewDto();
+
+            newReviewDto.setId(reviewSaved.getId());
+            newReviewDto.setReviewText(reviewSaved.getReviewText());
+            newReviewDto.setReviewDate(reviewSaved.getReviewDate());
+            newReviewDto.setUserId(reviewSaved.getUser().getId());
+            newReviewDto.setVideogameId(reviewSaved.getVideogame().getId());
+
+            return Optional.of(newReviewDto);
         }
     }
 }

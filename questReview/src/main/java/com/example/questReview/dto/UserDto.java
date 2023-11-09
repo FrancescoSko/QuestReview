@@ -1,5 +1,10 @@
 package com.example.questReview.dto;
 
+import com.example.questReview.entity.Review;
+import com.example.questReview.entity.Videogame;
+
+import java.util.List;
+
 public class UserDto {
 
     private Long id;
@@ -32,5 +37,4 @@ public class UserDto {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

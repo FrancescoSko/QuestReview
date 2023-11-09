@@ -1,6 +1,7 @@
 package com.example.questReview.service;
 
 import com.example.questReview.dto.UserDto;
+import com.example.questReview.entity.Review;
 import com.example.questReview.entity.User;
 import com.example.questReview.repository.UserDAO;
 import org.springframework.beans.BeanUtils;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -28,12 +30,12 @@ public class UserService {
         return userDtoList;
     }
 
-    public UserDto createUser(UserDto userDTO){
-        User user = new User();
-        BeanUtils.copyProperties(userDTO, user);
-        user = userDao.save(user);
-        BeanUtils.copyProperties(user, userDTO);
-        return userDTO;
+    public User createUser(UserDto userDto) {
+        User newUser = new User();
+        newUser.setNickname(userDto.getNickname());
+        newUser.setEmail(userDto.getEmail());
+
+        return userDao.save(newUser);
     }
 
 

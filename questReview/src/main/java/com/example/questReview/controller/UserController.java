@@ -2,8 +2,10 @@ package com.example.questReview.controller;
 
 
 import com.example.questReview.dto.UserDto;
+import com.example.questReview.entity.User;
 import com.example.questReview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public UserDto addUser(@RequestBody UserDto userDTO){
-        return userDTO = userService.createUser(userDTO);
+    public ResponseEntity<User> addUser(@RequestBody UserDto userDTO){
+        return ResponseEntity.ok(userService.createUser(userDTO));
     }
 }
