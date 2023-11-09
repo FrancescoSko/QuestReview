@@ -9,6 +9,9 @@ public class ReviewDto {
     private Long userId;
     private Long videogameId;
 
+    public ReviewDto() {
+    }
+
     public Long getId() {
         return id;
     }

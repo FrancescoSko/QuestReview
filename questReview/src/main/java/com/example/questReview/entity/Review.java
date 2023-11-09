@@ -3,7 +3,7 @@ package com.example.questReview.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
+
 @Entity
 public class Review {
     @Id
@@ -18,8 +18,6 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "videogame_id")
     private Videogame videogame;
-
-
 
     public Review(){
 

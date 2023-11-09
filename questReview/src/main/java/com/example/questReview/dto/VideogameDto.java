@@ -1,12 +1,8 @@
 package com.example.questReview.dto;
 
-import com.example.questReview.entity.Review;
-import com.example.questReview.entity.User;
 import com.example.questReview.enums.VideogamesGenres;
-import jakarta.persistence.ManyToMany;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class VideogameDto {
 
@@ -18,8 +14,12 @@ public class VideogameDto {
     private VideogamesGenres genre;
     private Integer pegi;
     private String platform;
-    private User user;
-    private List<Review> reviewList;
+    private Long userId;
+
+    // Non includere il campo "reviewList" in quanto rappresenta una collezione di recensioni
+
+    public VideogameDto() {
+    }
 
     public Long getId() {
         return id;
@@ -85,19 +85,11 @@ public class VideogameDto {
         this.platform = platform;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Review> getReviewList() {
-        return reviewList;
-    }
-
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
