@@ -20,6 +20,7 @@ public class UserService {
     public List<UserDto> getAllUsers(){
         List<User> userList = userDao.findAll();
         List<UserDto> userDtoList = new ArrayList<>();
+
         for (User user : userList) {
             UserDto userDto = new UserDto();
             userDto.setId(user.getId());
@@ -27,17 +28,24 @@ public class UserService {
             userDto.setEmail(user.getEmail());
             userDtoList.add(userDto);
         }
+
         return userDtoList;
     }
 
-    public User createUser(UserDto userDto) {
+    public Optional<UserDto> createUser(UserDto userDto) {
         User newUser = new User();
         newUser.setNickname(userDto.getNickname());
         newUser.setEmail(userDto.getEmail());
 
-        return userDao.save(newUser);
-    }
+        User savedUser = userDao.save(newUser);
 
+        UserDto newUserDto = new UserDto();
+        newUserDto.setId(savedUser.getId());
+        newUserDto.setNickname(savedUser.getNickname());
+        newUserDto.setEmail(savedUser.getEmail());
+
+        return Optional.of(newUserDto);
+    }
 
     //METODO PER ELIMINARE UN USER TRAMITE IL SUO ID
     public void deleteUserById(Long userId) {

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -17,13 +18,19 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/get-all")
-    public List<UserDto> findAllUsers ()
-    {
+    public List<UserDto> findAllUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody UserDto userDTO){
-        return ResponseEntity.ok(userService.createUser(userDTO));
+    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
+        Optional<UserDto> newUserDto = userService.createUser(userDto);
+
+        if (newUserDto.isPresent()) {
+            return ResponseEntity.ok(newUserDto.get());
+        } else {
+            // Handle the case where the user creation fails
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.questReview.service;
 
+import com.example.questReview.dto.ReviewDto;
 import com.example.questReview.dto.VideogameDto;
+import com.example.questReview.entity.Review;
 import com.example.questReview.entity.User;
 import com.example.questReview.entity.Videogame;
 import com.example.questReview.repository.UserDAO;
@@ -25,39 +27,56 @@ public class VideogameService {
     public List<VideogameDto> getAllVideogames() {
         List<Videogame> videogameList = videogameDAO.findAll();
         List<VideogameDto> videogameDtoList = new ArrayList<>();
-
-        for (Videogame videogame : videogameList) {
+        for (Videogame v : videogameList) {
             VideogameDto videogameDto = new VideogameDto();
-            videogameDto.setId(videogame.getId());
-            videogameDto.setTitle(videogame.getTitle());
-            videogameDto.setSoftwareHouse(videogame.getSoftwareHouse());
-            videogameDto.setPublisher(videogame.getPublisher());
-            videogameDto.setDateOfRelease(videogame.getDateOfRelease());
-            videogameDto.setPegi(videogame.getPegi());
-            videogameDto.setPlatform(videogame.getPlatform());
-            videogameDto.setUserId(videogame.getUser().getId());
+            videogameDto.setId(v.getId());
+            videogameDto.setTitle(v.getTitle());
+            videogameDto.setSoftwareHouse(v.getSoftwareHouse());
+            videogameDto.setPublisher(v.getPublisher());
+            videogameDto.setDateOfRelease(v.getDateOfRelease());
+            videogameDto.setGenre(v.getGenre());
+            videogameDto.setPegi(v.getPegi());
+            videogameDto.setPlatform(v.getPlatform());
+
+            if (v.getUser() != null) {
+                videogameDto.setUserId(v.getUser().getId());
+            }
+
             videogameDtoList.add(videogameDto);
         }
         return videogameDtoList;
     }
+    public Optional<VideogameDto> addVideogame(VideogameDto videogameDto) {
+        Videogame newVideogame = new Videogame();
+        newVideogame.setTitle(videogameDto.getTitle());
+        newVideogame.setSoftwareHouse(videogameDto.getSoftwareHouse());
+        newVideogame.setPublisher(videogameDto.getPublisher());
+        newVideogame.setDateOfRelease(videogameDto.getDateOfRelease());
+        newVideogame.setGenre(videogameDto.getGenre());
+        newVideogame.setPegi(videogameDto.getPegi());
+        newVideogame.setPlatform(videogameDto.getPlatform());
 
-    public VideogameDto createVideogame(VideogameDto videogameDto){
-        Videogame videogame = new Videogame();
-        BeanUtils.copyProperties(videogameDto, videogame);
-        videogame = videogameDAO.save(videogame);
-        BeanUtils.copyProperties(videogame, videogameDto);
-
-        Optional<User> userOptional = userDAO.findById(videogameDto.getUserId());
-        if (userOptional.isPresent()) {
-            videogame.setUser(userOptional.get());
-        } else {
-            //TODO da gestire
+        // Fetch the user by ID and set it to the Videogame
+        if (videogameDto.getUserId() != null) {
+            Optional<User> userOpt = userDAO.findById(videogameDto.getUserId());
+            userOpt.ifPresent(newVideogame::setUser);
         }
 
-        videogame = videogameDAO.save(videogame);
-        BeanUtils.copyProperties(videogame, videogameDto);
-        return videogameDto;
+        Videogame videogameSaved = videogameDAO.save(newVideogame);
+
+        VideogameDto newVideogameDto = new VideogameDto();
+        newVideogameDto.setId(videogameSaved.getId());
+        newVideogameDto.setTitle(videogameSaved.getTitle());
+        newVideogameDto.setSoftwareHouse(videogameSaved.getSoftwareHouse());
+        newVideogameDto.setPublisher(videogameSaved.getPublisher());
+        newVideogameDto.setDateOfRelease(videogameSaved.getDateOfRelease());
+        newVideogameDto.setGenre(videogameSaved.getGenre());
+        newVideogameDto.setPegi(videogameSaved.getPegi());
+        newVideogameDto.setPlatform(videogameSaved.getPlatform());
+
+        return Optional.of(newVideogameDto);
     }
+
 
     public void removeVideogame(Long id){
         videogameDAO.deleteById(id);
